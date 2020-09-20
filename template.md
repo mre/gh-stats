@@ -1,5 +1,5 @@
 | Repository | Stars |
 | :--------- | ----: |
 {% for repo in repos -%}
-| [{{ repo.name }}]({{ repo.url}}) | {{ repo.stargazers_count }} ★ |
+| [{{ repo.name }}]({{ repo.html_url | safe }}) | {{ repo.stargazers_count }} ★ |
 {% endfor -%}

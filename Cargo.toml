@@ -6,7 +6,8 @@ edition = "2018"
 
 [dependencies]
 anyhow = "1.0.32"
-hubcaps = "0.6.2"
+hubcaps = { path = "../../upstream/hubcaps"}
 tokio = { version = "0.2", features = ["macros"] } 
 structopt = "0.3.17"
 regex = "1.3.9"
+tera = "1.5.0"

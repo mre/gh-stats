@@ -2,12 +2,13 @@ mod lib;
 mod opt;
 
 use anyhow::Result;
-use hubcaps::{Credentials, Github};
+use hubcaps::{repositories::Repo, Credentials, Github};
 use lib::{get_org_repos, get_user_repos};
 use opt::Opt;
 use regex::{Regex, RegexSet};
-use std::env;
+use std::{env, fs};
 use structopt::StructOpt;
+use tera::{Context, Tera};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -23,17 +24,18 @@ async fn main() -> Result<()> {
         None => None,
     };
 
-    println!("User repos");
     let user_repos = get_user_repos(&github, opt.stars, &filtered).await?;
-    user_repos.iter().for_each(|repo| {
-        println!("{:?} ★{}", repo.full_name, repo.stargazers_count);
-    });
-
-    println!("Org repos");
     let org_repos = get_org_repos(&github, opt.stars, &filtered).await?;
-    org_repos.iter().for_each(|repo| {
-        println!("{:?} ★{}", repo.full_name, repo.stargazers_count);
-    });
+
+    let mut context = Context::new();
+    let mut repos: Vec<Repo> = user_repos
+        .into_iter()
+        .chain(org_repos.into_iter())
+        .collect();
+    repos.sort_by(|a, b| b.stargazers_count.cmp(&a.stargazers_count));
+    context.insert("repos", &repos);
+    let tpl = Tera::one_off(&fs::read_to_string("template.md")?, &context, true)?;
+    println!("{}", tpl);
 
     Ok(())
 }
