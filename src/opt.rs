@@ -21,4 +21,11 @@ pub struct Opt {
     /// Filter repositories (regex support)
     #[structopt(short, long, parse(try_from_str = parse_regex))]
     pub filter: Option<Vec<Regex>>,
+
+    /// Github username for stats (default: own user)
+    pub user: Option<String>,
+
+    /// Include organization repositories
+    #[structopt(long)]
+    pub with_orgs: bool,
 }

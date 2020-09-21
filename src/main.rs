@@ -24,8 +24,12 @@ async fn main() -> Result<()> {
         None => None,
     };
 
-    let user_repos = get_user_repos(&github, opt.stars, &filtered).await?;
-    let org_repos = get_org_repos(&github, opt.stars, &filtered).await?;
+    let user_repos = get_user_repos(&github, &opt.user, opt.stars, &filtered).await?;
+
+    let org_repos = match opt.with_orgs {
+        true => get_org_repos(&github, &opt.user, opt.stars, &filtered).await?,
+        false => vec![],
+    };
 
     let mut context = Context::new();
     let mut repos: Vec<Repo> = user_repos
@@ -34,7 +38,7 @@ async fn main() -> Result<()> {
         .collect();
     repos.sort_by(|a, b| b.stargazers_count.cmp(&a.stargazers_count));
     context.insert("repos", &repos);
-    let tpl = Tera::one_off(&fs::read_to_string("template.md")?, &context, true)?;
+    let tpl = Tera::one_off(&fs::read_to_string(&opt.template)?, &context, true)?;
     println!("{}", tpl);
 
     Ok(())

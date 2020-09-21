@@ -1,5 +1,7 @@
 use anyhow::Result;
-use hubcaps::repositories::{OrgRepoType, OrganizationRepoListOptions, Repo, Type};
+use hubcaps::repositories::{
+    OrgRepoType, OrganizationRepoListOptions, Repo, RepoListOptions, Type,
+};
 use hubcaps::Github;
 use hubcaps::{organizations::Org, repositories::UserRepoListOptions};
 use regex::RegexSet;
@@ -7,10 +9,15 @@ use tokio::stream::StreamExt;
 
 pub async fn get_org_repos(
     github: &Github,
+    user: &Option<String>,
     stars: u64,
     filtered: &Option<RegexSet>,
 ) -> Result<Vec<Repo>> {
-    let orgs = github.orgs().list().await?;
+    let orgs = match user {
+        Some(user) => github.user_orgs(user).list().await?,
+        None => github.orgs().list().await?,
+    };
+
     let valid_orgs: Vec<Org> = orgs
         .into_iter()
         .filter(|org| {
@@ -46,14 +53,24 @@ pub async fn get_org_repos(
 
 pub async fn get_user_repos(
     github: &Github,
+    user: &Option<String>,
     stars: u64,
     filtered: &Option<RegexSet>,
 ) -> Result<Vec<Repo>> {
-    let opts = UserRepoListOptions::builder()
-        .repo_type(Type::Public)
-        .build();
     let mut found = vec![];
-    let repos: Vec<Result<Repo, _>> = github.user_repos("mre").iter(&opts).collect().await;
+    let repos: Vec<Result<Repo, _>> = match user {
+        Some(user) => {
+            let opts = UserRepoListOptions::builder()
+                .repo_type(Type::Public)
+                .build();
+            github.user_repos(user).iter(&opts).collect().await
+        }
+        None => {
+            let opts = RepoListOptions::builder().repo_type(Type::Public).build();
+            github.repos().iter(&opts).collect().await
+        }
+    };
+
     for repo in repos {
         let repo = repo?;
         if let Some(filtered) = filtered {
