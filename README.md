@@ -1,9 +1,17 @@
 # Github Stats
 
-## Example
+## Examples
+
+#### Get stats for the current user:
 
 ```rust
 cargo run -- --stars 100 --template template.md --filter projectname
+```
+
+#### Get stats for specific user:
+
+```rust
+cargo run -- mre --stars 100 --template template.md --filter projectname
 ```
 
 ## Usage
