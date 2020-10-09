@@ -19,7 +19,7 @@ pub struct Opt {
     pub output: Option<PathBuf>,
 
     /// The minimum number of stars required to display a project
-    #[structopt(short, long, default_value = "10")]
+    #[structopt(short, long, default_value = "0")]
     pub stars: u64,
 
     /// Filter repositories (regex support)
