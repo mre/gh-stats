@@ -13,6 +13,8 @@ use tera::{Context, Tera};
 #[tokio::main]
 async fn main() -> Result<()> {
     let opt = Opt::from_args();
+    // Load template file first to check for syntax errors
+    let template_file = fs::read_to_string(&opt.template)?;
 
     let github = Github::new(
         String::from("Github Stats"),
@@ -38,8 +40,13 @@ async fn main() -> Result<()> {
         .collect();
     repos.sort_by(|a, b| b.stargazers_count.cmp(&a.stargazers_count));
     context.insert("repos", &repos);
-    let tpl = Tera::one_off(&fs::read_to_string(&opt.template)?, &context, true)?;
-    println!("{}", tpl);
+    let tpl = Tera::one_off(&template_file, &context, true)?;
+
+    if let Some(output) = opt.output {
+        fs::write(&output, tpl)?;
+    } else {
+        println!("{}", tpl);
+    }
 
     Ok(())
 }

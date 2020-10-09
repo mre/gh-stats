@@ -14,6 +14,10 @@ pub struct Opt {
     #[structopt(short, long, parse(from_os_str))]
     pub template: PathBuf,
 
+    /// Output file
+    #[structopt(short, long, parse(from_os_str))]
+    pub output: Option<PathBuf>,
+
     /// The minimum number of stars required to display a project
     #[structopt(short, long, default_value = "10")]
     pub stars: u64,
