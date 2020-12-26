@@ -1,4 +1,4 @@
-# Github Stats
+# 🌟 Github Stats
 
 ## Examples
 
