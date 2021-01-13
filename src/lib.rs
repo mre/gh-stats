@@ -5,7 +5,7 @@ use hubcaps::repositories::{
 use hubcaps::Github;
 use hubcaps::{organizations::Org, repositories::UserRepoListOptions};
 use regex::RegexSet;
-use tokio::stream::StreamExt;
+use tokio_stream::StreamExt;
 
 pub async fn get_org_repos(
     github: &Github,
