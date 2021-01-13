@@ -12,3 +12,4 @@ structopt = "0.3.21"
 regex = "1.4.2"
 tera = "1.6.0"
 hubcaps = { git = "https://github.com/softprops/hubcaps", branch="master"}
+url = "2.2.0"
