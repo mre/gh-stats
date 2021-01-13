@@ -11,4 +11,4 @@ tokio-stream = "0.1.0"
 structopt = "0.3.21"
 regex = "1.4.2"
 tera = "1.6.0"
-hubcaps = { git = "https://github.com/mre/hubcaps", branch="master"}
+hubcaps = { git = "https://github.com/softprops/hubcaps", branch="master"}
