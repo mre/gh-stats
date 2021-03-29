@@ -17,6 +17,14 @@ cargo run -- --stars 100 --template template.md --filter projectname
 cargo run -- mre --stars 100 --template template.md --filter projectname
 ```
 
+## Installation
+
+```
+cargo install --git https://github.com/mre/gh-stats --branch=main
+```
+
+(We have to wait for hubcaps 0.6.3+ for publication on crates.io.)
+
 ## Usage
 
 ```
