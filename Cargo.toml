@@ -1,15 +1,29 @@
 [package]
 name = "gh-stats"
+description = "Async command-line tool for retrieving the stars of all your Github projects."
 version = "0.1.0"
+license = "Apache-2.0/MIT"
+repository = "https://github.com/mre/gh-stats"
+homepage = "https://github.com/mre/gh-stats"
+documentation = "https://github.com/mre/gh-stats/blob/master/README.md"
 authors = ["Matthias Endler <matthias-endler@gmx.net>"]
 edition = "2018"
+keywords = [
+    "github",
+    "statistics",
+    "stars",
+]
 
 [dependencies]
-anyhow = "1.0.36"
-tokio = { version = "1.0.0", features = ["macros", "rt-multi-thread"] } 
-tokio-stream = "0.1.0"
+anyhow = "1.0.40"
+tokio = { version = "1.4.0", features = ["macros", "rt-multi-thread"] } 
+tokio-stream = "0.1.5"
 structopt = "0.3.21"
-regex = "1.4.2"
-tera = "1.6.0"
-hubcaps = { git = "https://github.com/softprops/hubcaps", branch="master"}
-url = "2.2.0"
+regex = "1.4.5"
+tera = "1.7.0"
+url = "2.2.1"
+hubcaps = "0.6.2"
+
+[patch.crates-io]
+# Switch back to version on crates.io after 0.6.3+ is released
+hubcaps = { git="https://github.com/softprops/hubcaps.git" }
