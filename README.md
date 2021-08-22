@@ -1,7 +1,9 @@
 # 🌟 Github Stats
 
-**🌈 This project graduated from [mre-early-access](https://github.com/mre-early-access) on December 26, 2020 and is now public thanks to
-[my generous sponsors](https://github.com/sponsors/mre).**
+**🌈 This project graduated from
+[mre-early-access](https://github.com/mre-early-access) on December 26, 2020 and
+is now public thanks to [my generous
+sponsors](https://github.com/sponsors/mre).**
 
 ## Examples
 
