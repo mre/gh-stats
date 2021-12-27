@@ -56,6 +56,8 @@ jobs:
         command: fetch
     - name: cargo publish check
       uses: actions-rs/cargo@v1
+      # Remove once hubcaps 0.6.3 is released
+      continue-on-error: true
       with:
         command: publish
         args: --dry-run
@@ -75,7 +77,6 @@ jobs:
           command: fetch  
       - name: cargo publish
         uses: actions-rs/cargo@v1
-        continue-on-error: true
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         with:
