@@ -7,7 +7,7 @@ repository = "https://github.com/mre/gh-stats"
 homepage = "https://github.com/mre/gh-stats"
 documentation = "https://github.com/mre/gh-stats/blob/master/README.md"
 authors = ["Matthias Endler <matthias-endler@gmx.net>"]
-edition = "2018"
+edition = "2021"
 keywords = [
     "github",
     "statistics",
@@ -15,15 +15,13 @@ keywords = [
 ]
 
 [dependencies]
-anyhow = "1.0.40"
-tokio = { version = "1.4.0", features = ["macros", "rt-multi-thread"] } 
-tokio-stream = "0.1.5"
-structopt = "0.3.21"
-regex = "1.4.5"
-tera = "1.7.0"
-url = "2.2.1"
+anyhow = "1.0.42"
+tokio = { version = "1.8.2", features = ["macros", "rt-multi-thread"] } 
+tokio-stream = "0.1.7"
+structopt = "0.3.22"
+regex = "1.5.4"
+tera = "1.12.1"
+url = "2.2.2"
 hubcaps = "0.6.2"
+futures = "0.3.16"
 
-[patch.crates-io]
-# Switch back to version on crates.io after 0.6.3+ is released
-hubcaps = { git="https://github.com/softprops/hubcaps.git", branch="master" }
