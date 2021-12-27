@@ -75,6 +75,7 @@ jobs:
           command: fetch  
       - name: cargo publish
         uses: actions-rs/cargo@v1
+        continue-on-error: true
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         with:
