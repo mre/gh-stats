@@ -24,6 +24,10 @@ tera = "1.12.1"
 url = "2.2.2"
 hubcaps = "0.6.2"
 futures = "0.3.16"
+openssl-sys = "0.9.72"
+
+[features]
+vendored-openssl = ["openssl-sys/vendored"]
 
 [patch.crates-io]
 # Switch back to version on crates.io after 0.6.3+ is released
